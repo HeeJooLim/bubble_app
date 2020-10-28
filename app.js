@@ -5,6 +5,9 @@ const socket = require("socket.io");
 const connect = require("./schemas");
 const bodyParser = require("body-parser");
 var session = require("express-session");
+
+var register = require("./router/register");
+
 const http = require("http");
 // const { nextTick } = require("process");
 // const { EDESTADDRREQ } = require("constants");
@@ -17,6 +20,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 const server = http.createServer(app);
 const io = socket(server);
+
 
 
 var chatRoom; // 채팅방
@@ -64,7 +68,7 @@ app.use("/js", express.static("./static/js"));
 app.set('view engine','ejs'); // 1
 app.use(express.static(__dirname + '/public'));
 
-
+app.use("/register", register);
 
 app.get("/", (req, res) => {
   console.log("유저가 / 으로 접속했습니다.");
@@ -124,7 +128,7 @@ app.post("/public/login", (req,res)=>{
     console.log(err);
   });
 
-})
+});
 
 
 server.listen(8080, () => {
