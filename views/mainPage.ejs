@@ -2,18 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>채팅</title>
+    <title>Bubble | Chats</title>
   </head>
   <body>
     <div id="main">
       <div>
         <ul>
-          <li>
-            <a href="/chatting/mark">mark</a>
-          </li>
-          <li>
-            <a href="/chatting/jisung">jisung</a>
-          </li>
+          <% for(var i = 0; i < data.length; i++){ %>
+            <li>
+              <a href="/chatting/<%= data[i]._id %>"><%= data[i].user_nm %></a>
+            </li>
+           <% } %>
         </ul>
       </div>
     </div>

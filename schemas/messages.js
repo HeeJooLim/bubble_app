@@ -2,30 +2,25 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const usersSchema = new Schema({
-  type: {
+const messagesSchema = new Schema({
+  roomId: {
     type: String,
     required: true,
     unique: false,
   },
-  user_id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  user_pwd: {
+  sender: {
     type: String,
     required: true,
     unique: false,
   },
-  user_nm: {
+  receiver: {
     type: String,
     required: true,
     unique: false,
   },
-  user_img: {
+  message: {
     type: String,
-    required: false,
+    required: true,
     unique: false,
   },
   createdAt: {
@@ -34,4 +29,4 @@ const usersSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("User", usersSchema);
+module.exports = mongoose.model("Message", messagesSchema);

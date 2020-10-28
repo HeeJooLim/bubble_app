@@ -11,17 +11,16 @@
   <body>
     <div id="main">
       <h1><%=room%></h1>
-        <div id="content">
-            
-        </div>
+      <div id="content"></div>
 
-      <input type="text" id="message"/>
+      <input type="text" id="message" />
       <button onclick="send()">보내기</button>
     </div>
     <script>
-          var room = "<%=room%>";
-          var name = "<%=room%>";
-          console.log(room);
+      var room = "<%=roomId%>";
+      //var room = "<%=room%>";
+      var name = "<%=room%>";
+      console.log(room);
     </script>
   </body>
 </html>

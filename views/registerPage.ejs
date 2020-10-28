@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>회원가입</title>
+  </head>
+  <body>
+    <div id="main">
+      <div>
+        <form action="/public/register" method="post">
+          <p>아이디 : <input type="text" name="userId" id="userId" /></p>
+          <p>
+            비밀번호 : <input type="password" name="userPwd" id="userPwd" />
+          </p>
+          <p>닉네임 : <input type="text" name="userNm" id="userNm" /></p>
+
+          <button type="button" onclick="register()">회원가입</button>
+          <button type="button" onclick="moveLoginPage()">취소</button>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+
+    function register() {
+      var userId = $("#userId").val();
+      var userPwd = $("#userPwd").val();
+      var userNm = $("#userNm").val();
+      $.ajax({
+        url: "/public/register",
+        dataType: "json",
+        type: "POST",
+        data: { userNm: userNm, userId: userId, userPwd: userPwd },
+        success: function (data) {
+          if (data.result == true) {
+            alert("회원가입 성공되었습니다.");
+            location.href = "/public/loginPage";
+          } else {
+            alert(data.msg);
+          }
+        },
+      });
+    }
+
+    function moveLoginPage() {
+      location.href = "/public/loginPage";
+    }
+
+  </script>
+</html>
