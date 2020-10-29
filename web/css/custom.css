@@ -1,0 +1,17 @@
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #6a11cb;
+    border-color: #6a11cb;
+  }
+
+
+
+  img {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 1em;
+  }

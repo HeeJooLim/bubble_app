@@ -1,27 +1,88 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>회원가입</title>
-  </head>
-  <body>
-    <div id="main">
-      <div>
-        <form action="/public/register" method="post">
-          <p>아이디 : <input type="text" name="userId" id="userId" /></p>
-          <p>
-            비밀번호 : <input type="password" name="userPwd" id="userPwd" />
-          </p>
-          <p>닉네임 : <input type="text" name="userNm" id="userNm" /></p>
+<html lang="UTF-8">
 
-          <button type="button" onclick="register()">회원가입</button>
-          <button type="button" onclick="moveLoginPage()">취소</button>
+<head>
+  <title>Bubble | 회원가입</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/web/images/icons/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="/web/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/vendor/animate/animate.css">
+  <link rel="stylesheet" type="text/css" href="/web/vendor/css-hamburgers/hamburgers.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/vendor/animsition/css/animsition.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/vendor/select2/select2.min.css">
+  <link rel="stylesheet" type="text/css" href="/web/vendor/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href="/web/css/util.css">
+  <link rel="stylesheet" type="text/css" href="/web/css/main.css">
+</head>
+
+
+<!-- <form action="/public/register" method="post">
+  <p>아이디 : <input type="text" name="userId" id="userId" /></p>
+  <p>
+    비밀번호 : <input type="password" name="userPwd" id="userPwd" />
+  </p>
+  <p>닉네임 : <input type="text" name="userNm" id="userNm" /></p>
+
+  <button type="button" onclick="register()">회원가입</button>
+  <button type="button" onclick="moveLoginPage()">취소</button>
+</form> -->
+
+
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100 p-b-160 p-t-50">
+        <form class="login100-form validate-form" action="/public/register" method="post">
+          <span class="login100-form-title p-b-43">
+            Bubble 💭
+          </span>
+
+          <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
+            <input class="input100" type="text" name="userId" id="userId" />
+            <span class="label-input100">아이디</span>
+          </div>
+
+
+          <div class="wrap-input100 rs2 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" name="userPwd" id="userPwd" />
+            <span class="label-input100">비밀번호</span>
+          </div>
+
+          <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
+            <input class="input100" type="text" name="userNm" id="userNm" />
+            <span class="label-input100">닉네임</span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" onclick="register()">
+              회원가입
+            </button>
+          </div>
+          
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" onclick="moveLoginPage()">
+              취소
+            </button>
+          </div>
+
+
+        
         </form>
       </div>
     </div>
-  </body>
-
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  </div>
+  <script src="/web/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="/web/vendor/animsition/js/animsition.min.js"></script>
+  <script src="/web/vendor/bootstrap/js/popper.js"></script>
+  <script src="/web/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/web/vendor/select2/select2.min.js"></script>
+  <script src="/web/vendor/daterangepicker/moment.min.js"></script>
+  <script src="/web/vendor/daterangepicker/daterangepicker.js"></script>
+  <script src="/web/vendor/countdowntime/countdowntime.js"></script>
+  <script src="/web/js/main.js"></script>
   <script>
 
     function register() {
@@ -49,4 +110,6 @@
     }
 
   </script>
+</body>
+
 </html>

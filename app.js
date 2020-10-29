@@ -29,6 +29,7 @@ io.use(sharedsession(session));
 
 app.use("/css", express.static("./static/css"));
 app.use("/js", express.static("./static/js"));
+app.use("/web", express.static("./web/"));
 
 app.set('view engine','ejs'); // 1
 app.use(express.static(__dirname + '/public'));
@@ -93,6 +94,6 @@ io.sockets.on("connection", (socket) => {
 
 
 
-server.listen(8080, () => {
+server.listen(8089, () => {
   console.log("서버 실행 중");
 });

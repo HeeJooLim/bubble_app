@@ -3,7 +3,7 @@
  * 로그인, 회원가입 관련 router
  */
 
-const e = require('express');
+
 var express = require('express');
 var router = express.Router();
 
@@ -43,6 +43,13 @@ router.post("/register", (req,res)=>{
 
 
 router.get("/loginPage", (req, res) => {
+
+    if(req.session.userSn){
+        res.status(200);
+        res.redirect("/");
+        res.end();
+        return;
+    }
     res.status(200);
     res.render("loginPage");
     res.end();
@@ -74,6 +81,12 @@ router.post("/login", (req,res)=>{
     });
   
   });
-  
+
+
+  router.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.redirect('/public/loginPage');
+    res.end();
+  });
 
 module.exports = router;
