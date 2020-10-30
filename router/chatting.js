@@ -8,6 +8,7 @@ const session = require("express-session");
 var router = express.Router();
 
 var User = require("../schemas/users");
+var Message = require("../schemas/messages");
 
 
 router.get("/:roomId", (req, res) => {
@@ -34,6 +35,49 @@ router.get("/:roomId", (req, res) => {
         console.log(err);
     })
   });
+
+  router.get("/:roomId/chat", (req,res)=>{
+    Message.find({roomId : req.params.roomId}, (err, data)=>{
+      res.send(data);
+      res.end();
+    }).catch((err)=>{
+        console.log(err);
+    })
+  })
+
+  
+  router.get("/:roomId/chat2", (req,res)=>{
+    var roomId = req.params.roomId;
+
+    if(!req.session.userSn){
+        res.redirect("/public/loginPage");
+        res.end();
+        return;
+    }
+
+    User.findById(req.params.roomId, (err, data)=>{
+       var result ={};
+      
+        var data_ = { roomId: data._id, room: data.user_nm, userNm : req.session.userNm };
+        result.data = data_;
+      
+        Message.find({roomId : req.params.roomId}, (err, data2)=>{
+          result.data_msg = data2;
+
+          console.log(result);
+          res.send(result);
+          res.end();
+        }).catch((err)=>{
+            console.log(err);
+        })
+
+  }).catch((err)=>{
+      console.log(err);
+  })
+    
+
+  })
+  
   
 
 module.exports = router;

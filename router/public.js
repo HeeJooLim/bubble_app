@@ -70,7 +70,7 @@ router.post("/login", (req,res)=>{
         _session.type = users[0].type;
         _session.userSn = users[0]._id;
   
-        res.redirect("/");
+        res.redirect("/test");
         res.end();
       } else {
           res.render("loginPage");

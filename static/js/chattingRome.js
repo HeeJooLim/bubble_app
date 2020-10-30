@@ -22,3 +22,5 @@ function send() {
   $("#message").val("");
   socket.emit("message", { type: "00", message: message });
 }
+
+
