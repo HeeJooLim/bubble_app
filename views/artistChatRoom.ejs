@@ -13,21 +13,25 @@
 
 <body>
     <div class="container" data-roomId = "<%=roomId%>">
-        <h3 class=" text-center">Messaging</h3>
+        <div class="content">
+            <div style="margin-bottom: 20px;">
+                <h3 class=" text-center">BUBBLE 💭</h3>
+                <p class="text-right" style="font-size: 13px;" onclick="location.href='/public/logout'">로그아웃💨</p>
+            </div>
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="inbox_people">
                     <div class="headind_srch">
                         <div class="recent_heading">
-                            <h4>Recent</h4>
+                            <h4>Message</h4>
                         </div>
-                        <div class="srch_bar">
+                        <!-- <div class="srch_bar">
                             <div class="stylish-input-group">
                                 <input type="text" class="search-bar" placeholder="Search">
                                 <span class="input-group-addon">
                                     <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                                 </span> </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="inbox_chat">
                        
@@ -43,7 +47,7 @@
                     </div>
                 </div>
             </div>
-
+            </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
