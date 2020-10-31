@@ -74,9 +74,6 @@ router.get("/:roomId/chat2", (req, res) => {
     }
 
     Message.find(query).sort({ _id: 'asc' }).exec( (err,data2)=>{
-    //Message.find(query, (err, data2) => {
-
-      console.log(data2);
       result.data_msg = data2;
       res.send(result);
       res.end();
