@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 module.exports = () => {
   const connect = () => {
     mongoose.connect(
-      "mongodb://e4net:e4net123@localhost:27017/admin",
+      "mongodb://heejoo:heejoo@localhost:27017/admin",
       {
         dbName: "chatting",
       },

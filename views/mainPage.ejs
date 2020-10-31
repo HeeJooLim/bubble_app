@@ -1,67 +1,137 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-  <title>Bubble | Login</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="/web/images/icons/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="/web/vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/vendor/animate/animate.css">
-  <link rel="stylesheet" type="text/css" href="/web/vendor/css-hamburgers/hamburgers.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/vendor/animsition/css/animsition.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/vendor/select2/select2.min.css">
-  <link rel="stylesheet" type="text/css" href="/web/vendor/daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" type="text/css" href="/web/css/util.css">
-  <link rel="stylesheet" type="text/css" href="/web/css/main.css">
-  <link rel="stylesheet" type="text/css" href="/web/css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
+        rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/css/test.css">
+    
 </head>
 
 <body>
-  <div class="limiter">
-    <div class="container-content">
-      <div class="wrap-login100 p-b-160 p-t-50 ">
-        <span class="login100-form-title2 p-b-43">
-          Bubble 💭
-        </span>
-        <div class="m-b-20">
-          <p style=" text-align: right;"><a href="/public/logout">로그아웃</a></p>
-          <p>채팅방</p>
-        </div>
-        <div class="list-group copyable">
-          <% for(var i = 0; i < data.length; i++){ %>
-          <span>
-            <a href="/chatting/<%= data[i]._id %>" class="list-group-item list-group-item-action ">
-              <img src="<%= data[i].user_img %>" /><strong><%= data[i].user_nm %></strong>
-              <span> 📢 안녕하세요 여러분</span>
-            </a>
-          </span>
-          <% } %>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  <script src="/web/vendor/jquery/jquery-3.2.1.min.js"></script>
-  <script src="/web/vendor/animsition/js/animsition.min.js"></script>
-  <script src="/web/vendor/bootstrap/js/popper.js"></script>
-  <script src="/web/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/web/vendor/select2/select2.min.js"></script>
-  <script src="/web/vendor/daterangepicker/moment.min.js"></script>
-  <script src="/web/vendor/daterangepicker/daterangepicker.js"></script>
-  <script src="/web/vendor/countdowntime/countdowntime.js"></script>
-  <script src="/web/js/main.js"></script>
-  <script>
-    $(".list-group-item").on("mouseover", function () {
-      $(this).addClass("active")
-    });
+    <div class="container">
+        <h3 class=" text-center">Messaging</h3>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Recent</h4>
+                        </div>
+                        <div class="srch_bar">
+                            <div class="stylish-input-group">
+                                <input type="text" class="search-bar" placeholder="Search">
+                                <span class="input-group-addon">
+                                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                </span> </div>
+                        </div>
+                    </div>
+                    <div class="inbox_chat scollCls">
+                        <% for(var i = 0; i < data.length; i++){ %>
+                        <div class="chat_list" data-roomId="<%= data[i]._id %>">
+                            <div class="chat_people" >
+                                <div class="chat_img"> <img src="<%= data[i].user_img %>" alt="sunil"> </div>
+                                <div class="chat_ib">
+                                    <h5><%= data[i].user_nm %></strong><span class="chat_date">Dec 25</span></h5>
+                                    <p>📢 안녕하세요 여러분 </p>
+                                    <!-- active_chat -->
+                                </div>
+                            </div>
+                        </div>
 
-    $(".list-group-item").on("mouseout", function () {
-      $(this).removeClass("active");
-    });
-  </script>
+                        <% } %>
+
+                    </div>
+                </div>
+                <div class="mesgs">
+                    <div class="msg_history"></div>
+                    <div class="type_msg">
+                        <div class="input_msg_write">
+                            <input type="text" id="message" class="write_msg input_msg" placeholder="메세지를 입력해주세요"/>
+                            <button class="msg_send_btn input_msg" type="button" onclick="send()"><i class="fa fa-paper-plane-o" aria-hidden="true" ></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/mainPage.js"></script>
+    <script>
+
+        let roomId;
+        var room;
+        var name;
+
+        $(".chat_list").off().on("click",function(){
+            socket.emit("leave", { room: room });
+            $(".chat_list").removeClass("active_chat")
+            $(this).addClass("active_chat");
+            
+            roomId = $(this).attr("data-roomid");
+            room = $(this).attr("data-roomid");
+
+            $(".msg_history").html("");
+
+
+            var roomId = room;
+            // 채팅방 접속
+            socket.emit("enter", { room: room });
+
+            $.ajax({
+                url: "/chatting/" + roomId + "/chat2",
+                dataType: "json",
+                type: "GET",
+                data: { roomId : roomId },
+                success: function (data) {
+
+                 var info = data.data;
+                 name = info.room;
+                 var data_msg = data.data_msg;
+                console.log(data_msg)
+                 data_msg.forEach(msg => {
+                     if(msg.sender != msg.roomId) { // 사용자가 보냄
+                        userHtml(msg);
+                     } else { // 아티스트가 보냄
+                        artistHtml(msg);
+                     }
+                 });
+                 $('.msg_history').scrollTop($(".msg_history")[0].scrollHeight);
+                
+                },
+            });
+
+        });
+
+        function userHtml(data){
+           
+            var html = '<div class="outgoing_msg"><div class="sent_msg"><p>'
+            html += data.message;
+            html += '</p><span class="time_date">'
+            html += moment(data.createdAt).format("MMM Do YY");
+            html += '</span></div></div>';
+
+            $(".msg_history").append(html);
+        }
+
+        function artistHtml(data){
+
+            var html = '<div class="incoming_msg"><div class="incoming_msg_img"><img src="';
+            html += data.roomImg ? data.roomImg : '';
+            html += '" alt="사진"></div><div class="received_msg"><div class="received_withd_msg"><p>'
+            html += data.message;
+            html += '</p><span class="time_date">';
+            html += moment(data.createdAt).format("MMM Do YY");
+            html += '</span></div></div></div>';
+            $(".msg_history").append(html);
+        }
+
+
+    </script>
 </body>
 
 </html>

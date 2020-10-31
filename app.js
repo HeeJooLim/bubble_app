@@ -16,15 +16,15 @@ var io = socket(server);
 const connect = require("./schemas");
 connect();
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-const session = require('express-session')({
-  secret: '@#@$MYSIGN#@$#$',
+const session = require("express-session")({
+  secret: "@#@$MYSIGN#@$#$",
   resave: false,
-  saveUninitialized: true
- });
+  saveUninitialized: true,
+});
 
-var sharedsession = require("express-socket.io-session"); 
+var sharedsession = require("express-socket.io-session");
 const { $where } = require("./schemas/users");
 app.use(session);
 io.use(sharedsession(session));
@@ -33,104 +33,109 @@ app.use("/css", express.static("./static/css"));
 app.use("/js", express.static("./static/js"));
 app.use("/web", express.static("./web/"));
 
-app.set('view engine','ejs'); // 1
-app.use(express.static(__dirname + '/public'));
+app.set("view engine", "ejs"); // 1
+app.use(express.static(__dirname + "/public"));
 
 app.use("/public", public);
 app.use("/chatting", chatting);
 
+const moment = require("moment");
+
+app.use((req, res, next) => {
+  res.locals.moment = moment;
+  next();
+});
+
+
 app.get("/", (req, res) => {
-
   console.log("유저가 / 으로 접속했습니다.");
-  
-  if(!req.session.userSn){
+
+  if (!req.session.userSn) {
     res.redirect("/public/loginPage");
     res.end();
     return;
   }
 
-  User.find({type:'01'}, (err,data)=>{
+  if (req.session.type == "01") {
+
     res.status(200);
-    res.render('mainPage', {data : data});
+    res.render("artistChatRoom", { roomId: req.session.userSn });
     res.end();
-  });
-});
 
-
-
-app.get("/test", (req, res) => {
-
-  console.log("유저가 / 으로 접속했습니다.");
-  
-  if(!req.session.userSn){
-    res.redirect("/public/loginPage");
-    res.end();
-    return;
+  } else {
+    User.find({ type: "01" }, (err, data) => {
+      res.status(200);
+      res.render("mainPage", { data: data });
+      res.end();
+    });
   }
-
-  User.find({type:'01'}, (err,data)=>{
-    res.status(200);
-    res.render('mainPageNew', {data : data});
-    res.end();
-  });
 });
-
-
 
 //socket io
 
-var chatRoom; // 채팅방
-var artistSocketId;
+var rooms = [];
 io.sockets.on("connection", (socket) => {
-
   // (1) 채팅방 들어가기
-  socket.on('enter', (data)=>{
-    socket.leave(chatRoom);
+  socket.on("enter", (data) => {
 
-    chatRoom = data.room;
-    
-    if(socket.handshake.session.type == '01'){
-      artistSocketId = socket.id;
+    if (socket.handshake.session.type == "01") {
+      rooms[data.room] = new Object();
+      rooms[data.room].socket_ids = new Object();
+      rooms[data.room].socket_ids["artist"] = socket.id;
     }
 
     socket.name = socket.handshake.session.userNm;
-    socket.join(chatRoom);
+    socket.join(data.room);
   });
 
-  socket.on("message", (data)=>{
+  socket.on("message", (data) => {
     data.name = socket.name;
-    if(data.type=="00"){
+    var createdAt = new Date();
 
-      const newMessage = new message({
-        roomId : chatRoom,
-        sender : socket.handshake.session.userSn,
-        receiver : chatRoom,
-        message : data.message
-      })
+    const newMessage = new message({
+      roomId: data.room,
+      sender: socket.handshake.session.userSn,
+      senderNm: socket.handshake.session.userNm,
+      receiver: data.room,
+      message: data.message,
+      roomImg : socket.handshake.session.userImg,
+      createdAt: createdAt,
+    });
 
+    if (data.type == "00") {
       newMessage.save(function (err, data2) {
-        if (err) {// TODO handle the error
-            console.log("error");
+        if (err) {
+          console.log("error", err);
         }
-        console.log("haah");
+        data.senderNm = socket.handshake.session.userNm;
+        data.createdAt = createdAt;
 
-        io.sockets.to(artistSocketId).to(socket.id).emit("showMessage", data);
+        io.sockets.to(socket.id).emit("showMessage", data);
+        if(rooms[data.room] && rooms[data.room].socket_ids["artist"]){
+          io.sockets.to(rooms[data.room].socket_ids["artist"]).emit("showMessage", data);
+        }
       });
-
-    } else if(data.type=="01"){
-      io.sockets.to(chatRoom).emit("showMessageArt", data);
+    } else if (data.type == "01") {
+      newMessage.save(function (err, data2) {
+        if (err) {
+          console.log("error", err);
+        }
+        data.roomImg = socket.handshake.session.userImg;
+        data.createdAt = createdAt;
+        io.sockets.to(data.room).emit("showMessageArt", data);
+      });
     }
   });
 
+  socket.on("leave", (data)=>{
+    socket.leave(data.room);
+  })
 
   socket.on("disconnect", () => {
-    socket.leave(chatRoom);
+    console.log("disconnect");
   });
-  
 });
 
-
-
-server.listen(8089, () => {
+server.listen(8080, () => {
   console.log("서버 실행 중");
 });

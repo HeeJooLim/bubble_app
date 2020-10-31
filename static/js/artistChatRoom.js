@@ -1,27 +1,26 @@
-
 var socket = io();
 
 
 // 채팅방 접속
 socket.on("connect", () => {
-
     socket.emit("enter", { room: room });
-  });
+});
 
-  
 // 메세지 받기(아티스트용)
 socket.on("showMessageArt", (data) => {
-    $("#content").append(`<p>${data.name}(아티스트) : ${data.message}</p`);
+    artistHtml(data);
+    $('.msg_history').scrollTop($(".msg_history")[0].scrollHeight);
   });
 
 // 메세지 받기
 socket.on("showMessage", (data)=>{
-    $("#userMessage").append(`<p>${data.name} : ${data.message}</p`);
+    userHtml(data);
+    $('.inbox_chat').scrollTop($(".inbox_chat")[0].scrollHeight);
 })
 
 function send() {
-    var message = $("#message").val();
-     $("#message").val("");
-  socket.emit("message", { type: "01",  message: message });
+  var message = $("#message").val();
+  $("#message").val("");
+  socket.emit("message", { type: "01",  message: message, room : room });
 }
   

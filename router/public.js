@@ -69,8 +69,9 @@ router.post("/login", (req,res)=>{
         _session.userId = users[0].user_id;
         _session.type = users[0].type;
         _session.userSn = users[0]._id;
+        _session.userImg = users[0].user_img;
   
-        res.redirect("/test");
+        res.redirect("/");
         res.end();
       } else {
           res.render("loginPage");

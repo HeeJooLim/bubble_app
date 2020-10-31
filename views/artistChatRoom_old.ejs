@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>채팅</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/artistChatRoom.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1><%=room%></h1>
+      <div style="display: inline-block; width: 400; height: 600">
+        <div id="content"></div>
+        <input type="text" id="message" />
+        <button onclick="send()">보내기</button>
+      </div>
+      <div
+        id="userMessage"
+        style="display: inline-block; width: 400; height: 600; overflow: scroll"
+      ></div>
+    </div>
+    <script>
+      var room = "<%=roomId%>";
+      var name = "<%=room%>";
+      console.log(room);
+    </script>
+  </body>
+</html>

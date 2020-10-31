@@ -8,9 +8,19 @@ const messagesSchema = new Schema({
     required: true,
     unique: false,
   },
+  roomImg: {
+    type: String,
+    required: false,
+    unique: false,
+  },
   sender: {
     type: String,
     required: true,
+    unique: false,
+  },
+  senderNm : {
+    type : String,
+    required: false,
     unique: false,
   },
   receiver: {
