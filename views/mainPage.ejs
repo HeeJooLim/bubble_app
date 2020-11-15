@@ -39,8 +39,11 @@
                             <div class="chat_people" >
                                 <div class="chat_img"> <img src="<%= data[i].user_img %>" alt="sunil"> </div>
                                 <div class="chat_ib">
-                                    <h5><%= data[i].user_nm %></strong><span class="chat_date">Dec 25</span></h5>
-                                    <p>📢 안녕하세요 여러분 </p>
+                                    <h5>
+                                        <%= data[i].user_nm %></strong>
+                                        <!-- <span class="chat_date">Dec 25</span> -->
+                                    </h5>
+                                    <p>📢 <%= data[i].user_nm %>와 대화를 나눠보세요! </p>
                                     <!-- active_chat -->
                                 </div>
                             </div>

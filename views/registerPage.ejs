@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="/web/images/icons/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="/web/vendor/bootstrap/css/bootstrap.min.css">
+  
   <link rel="stylesheet" type="text/css" href="/web/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/web/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
   <link rel="stylesheet" type="text/css" href="/web/vendor/animate/animate.css">
@@ -16,6 +16,8 @@
   <link rel="stylesheet" type="text/css" href="/web/vendor/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" type="text/css" href="/web/css/util.css">
   <link rel="stylesheet" type="text/css" href="/web/css/main.css">
+  <!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 
 
@@ -35,12 +37,33 @@
   <div class="limiter">
     <div class="container-login100">
       <div class="wrap-login100 p-b-160 p-t-50">
-        <form class="login100-form validate-form" action="/public/register" method="post">
+        <form class="" action="/public/register" method="post">
           <span class="login100-form-title p-b-43">
             Bubble 💭
           </span>
 
-          <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
+          <div class="form-group row">
+            <label for="userId" class="col-sm-2 col-form-label">아이디</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="userId" id="userId" placeholder="아이디를 입력해주세요">
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <label for="userPwd" class="col-sm-2 col-form-label">비밀번호</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="비밀번호을 입력해주세요">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="userNm" class="col-sm-2 col-form-label">닉네임</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="userNm" id="userNm"  placeholder="닉네임을 입력해주세요">
+            </div>
+          </div>
+
+          <!-- <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
             <input class="input100" type="text" name="userId" id="userId" />
             <span class="label-input100">아이디</span>
           </div>
@@ -54,22 +77,12 @@
           <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
             <input class="input100" type="text" name="userNm" id="userNm" />
             <span class="label-input100">닉네임</span>
-          </div>
-
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" onclick="register()">
-              회원가입
-            </button>
-          </div>
+          </div> -->
+          <div >
+            <button type="button" class="btn btn-lg  btn-block" style="background-color: #f5e4e9; border-color: #f5e4e9; font-size : 15px;" onclick="register()">회원가입</button>
+            <button type="button" class="btn btn-lg btn-block" style="background-color: #a5a5a5; border-color: #a5a5a5; font-size : 15px;" onclick="moveLoginPage()">취소</button>
+        </div>
           
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" onclick="moveLoginPage()">
-              취소
-            </button>
-          </div>
-
-
-        
         </form>
       </div>
     </div>
@@ -89,6 +102,12 @@
       var userId = $("#userId").val();
       var userPwd = $("#userPwd").val();
       var userNm = $("#userNm").val();
+
+      if(!userId || !userPwd || !userNm ){
+        alert("정보를 모두 입력해주세요!");
+        return;
+      }
+      
       $.ajax({
         url: "/public/register",
         dataType: "json",
